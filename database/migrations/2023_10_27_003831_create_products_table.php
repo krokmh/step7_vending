@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            // ここで文字数とか設定するべきか？
             $table->unsignedBigInteger('company_id');
             $table->string('product_name');
             $table->integer('price');

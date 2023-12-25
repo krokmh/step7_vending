@@ -34,12 +34,12 @@
 
                         <div class="input-group align-items-center p-3 row">
                             <label for="price" class="form-label col-3">金額</label>
-                            <input type="number" class="form-control col-9" id="price" name="price" value="{{ $product->price }}" required>
+                            <input type="text" class="form-control col-9" id="price" name="price" value="{{ $product->price }}" required>
                         </div>
 
                         <div class="input-group align-items-center p-3 row">
                             <label for="stock" class="form-label col-3">在庫数</label>
-                            <input type="number" class="form-control col-9" id="stock" name="stock" value="{{ $product->stock }}" required>
+                            <input type="text" class="form-control col-9" id="stock" name="stock" value="{{ $product->stock }}" required>
                         </div>
 
                         <div class="input-group align-items-center p-3 row">

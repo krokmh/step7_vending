@@ -79,8 +79,8 @@
         </table>
     </div>
     {{-- ページネーション --}}
-    {{-- {{ $products->links() }}  --}}
-    {{ $products->appends(request()->query())->links() }}
+    {{ $products->links() }} 
+    {{-- {{ $products->appends(request()->query())->links() }} --}}
     
 </div>
 @endsection

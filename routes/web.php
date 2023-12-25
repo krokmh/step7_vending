@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Auth; //　ユーザ認証？？
 */
 
 Route::get('/', function () {
-    // return view('welcome');
     if (Auth::check()) {
         // ログイン状態なら
         return redirect()->route('products.index');

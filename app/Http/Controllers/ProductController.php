@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Product; // Productモデルを現在のファイルで使用できる
 use App\Models\Company;
-use Illuminate\Http\Request;    //RequestフォルダにあるCreateRuquest.php
+use Illuminate\Http\Request;    // RequestフォルダにあるCreateRuquest.php
+use Illuminate\Support\Facades\DB;  // ★追加
 
 class ProductController extends Controller
 {
@@ -24,7 +25,7 @@ class ProductController extends Controller
         //全ての（companies）会社情報を取得、商品編集画面のselectボックス
         return view('products.index',compact('products' ,'companies'));
 
-    }
+    }    
 
     /**
      * Show the form for creating a new resource.
@@ -48,7 +49,12 @@ class ProductController extends Controller
     {
         // ->validate()送信されたデータが条件に合うか、$request->validate([～
         // ★CreateRuquest.phpへ移動
-        
+
+        // （２－１）　更新、削除、★新規作成
+        DB::beginTransaction();
+
+        try {
+            
             // 新しく商品を作るため、newで新しいインスタンス作成
             $product = new Product([
                 'product_name' => $request->get('product_name'),
@@ -68,10 +74,18 @@ class ProductController extends Controller
 
             // 作成したデータベースに新しいレコードを保存。
             $product->save();
+            DB::commit();
 
-            // 全ての処理が終わったら、商品一覧画面に戻る
-            return redirect('products');
-        // });
+        } catch (\Exception $e) {   //この部分がよく分かっていない
+            DB::rollback();
+            return back();
+        }
+            
+        
+        // 全ての処理が終わったら、商品一覧画面に戻る
+        return redirect('products');
+        
+       
 
     }
     /**
@@ -112,6 +126,11 @@ class ProductController extends Controller
         // ->validate()送信されたデータが条件に合うか、$request->validate([～
         // ★CreateRuquest.phpへ移動
 
+        // （２－１）　★更新、削除、新規作成
+        DB::beginTransaction();
+
+         try {
+            
             // 商品の情報を更新
             // 例：productモデルのproduct_nameをフォームから送られたproduct_nameの値に書き換える
             $product->product_name = $request->product_name;
@@ -127,14 +146,19 @@ class ProductController extends Controller
                 $product->img_path = '/storage/' . $filePath;
             } 
 
-
             // 更新した商品を保存
             $product->save();
+            DB::commit();
 
-            // 全ての処理が終わったら、「商品一覧画面」に戻る
-            return redirect()->route('products.index')
-                ->with('success', 'Product updated successfully');
-        // });
+        } catch (\Exception $e) {   //この部分がよく分かっていない
+            DB::rollback();
+            return back();
+        }
+
+        // 全ての処理が終わったら、「商品一覧画面」に戻る
+        return redirect()->route('products.index')
+            ->with('success', 'Product updated successfully');
+    
     }
 
     /**
@@ -145,12 +169,22 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        // DB::transaction(function () {　★これを入れると、エラーが発生する
+        // （２－１）　更新、★削除、新規作成
+        DB::beginTransaction();
+
+         try {
+
             // 商品の削除
             $product->delete();
-            // 処理が終わったら「商品一覧画面」へ戻る
-            return redirect('/products');
-        // });
+            DB::commit();
+
+        } catch (\Exception $e) {   //この部分がよく分かっていない
+            DB::rollback();
+            return back();
+        }
+
+        // 処理が終わったら「商品一覧画面」へ戻る
+        return redirect('/products');
     }
 }
 

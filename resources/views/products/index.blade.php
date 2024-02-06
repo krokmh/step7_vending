@@ -9,7 +9,7 @@
         
         <!-- 検索フォーム：GETメソッドで、商品一覧のルートにデータを送信 -->
         <form method="GET" action="{{ route('products.index') }}" class="row g-3">
-    
+
             {{-- 商品名検索用の入力欄 --}}
             <div class="col-sm-12 col-md-3">
                 <input type="text" name="search" class="form-control" placeholder="商品名" value="{{ request('search') }}">
@@ -17,16 +17,35 @@
 
             {{-- メーカー名セレクトボックス --}}
             {{-- <form method="POST" action="{{ route('products.index') }}"> --}}
-                <div class="mb-3">
-                    <select class="form-select" name="company_id">
-                        <option value="">メーカー名</option>
-                        @foreach($companies as $company)
-                            <option value="{{ $company->id }}">{{ $company->company_name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            {{-- </form> --}}
-    
+            <div class="mb-3">
+                <select class="form-select" name="company_id">
+                    <option value="">メーカー名</option>
+                    @foreach($companies as $company)
+                        <option value="{{ $company->id }}">{{ $company->company_name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+
+            <!-- 最小価格の入力欄 -->
+            <div class="col-sm-12 col-md-2">
+                <input type="number" name="min_price" class="form-control" placeholder="最小価格" value="{{ request('min_price') }}">
+            </div>
+            <!-- 最大価格の入力欄 -->
+            <div class="col-sm-12 col-md-2">
+                <input type="number" name="max_price" class="form-control" placeholder="最大価格" value="{{ request('max_price') }}">
+            </div>
+
+            <!-- 最小在庫数の入力欄 -->
+            <div class="col-sm-12 col-md-2">
+                <input type="number" name="min_stock" class="form-control" placeholder="最小在庫" value="{{ request('min_stock') }}">
+            </div>
+            <!-- 最大在庫数の入力欄 -->
+            <div class="col-sm-12 col-md-2">
+                <input type="number" name="max_stock" class="form-control" placeholder="最大在庫" value="{{ request('max_stock') }}">
+            </div>
+
+            
             {{-- ボタンを押す⇒内容を絞り込み --}}
             <div class="col-sm-12 col-md-1">
                 <button class="btn btn-outline-secondary" type="submit">検索</button>
@@ -41,12 +60,20 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>@sortablelink('id', 'ID')</th>
                     <th>商品画像</th>
-                    <th>商品名</th>
-                    <th>価格</th>
-                    <th>在庫数</th>
-                    <th>メーカー</th>
+                    <th>@sortablelink('product_name', '商品名')</th>
+                    <th>
+                        @sortablelink('price', '価格')
+                        {{-- <a href="{{ request()->fullUrlWithQuery(['sort' => 'price', 'direction' => 'asc']) }}">↑</a>
+                        <a href="{{ request()->fullUrlWithQuery(['sort' => 'price', 'direction' => 'desc']) }}">↓</a> --}}
+                    </th>
+                    <th>
+                        @sortablelink('stock', '在庫数')
+                        {{-- <a href="{{ request()->fullUrlWithQuery(['sort' => 'stock', 'direction' => 'asc']) }}">↑</a>
+                        <a href="{{ request()->fullUrlWithQuery(['sort' => 'stock', 'direction' => 'desc']) }}">↓</a> --}}
+                    </th>
+                    <th>@sortablelink('company->company_name', 'メーカー')</th>
                     {{-- <th>コメント</th> --}}
                     <th>操作</th>
                 </tr>
@@ -79,8 +106,8 @@
         </table>
     </div>
     {{-- ページネーション --}}
-    {{ $products->links() }} 
-    {{-- {{ $products->appends(request()->query())->links() }} --}}
+    {{-- {{ $products->links() }}  --}}
+    {{ $products->appends(request()->query())->links() }}
     
 </div>
 @endsection

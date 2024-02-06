@@ -16,6 +16,23 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
+        // step8 ソート機能の追加
+        // Product.phpモデルにも追記
+        $posts = Product::sortable()->get(); //sortable() を先に宣言
+
+        // $posts = Product::sortable('company_id','asc')->paginate(5);
+        // $posts = Product::sortable('product_name','desc')->paginate(5);
+
+
+        // $companiesなどを定義する前にreturn viewをしてしまっているので、そこで処理が終わってしまって下まで通らず
+        // $postsの宣言の下のreturn viewの処理を一度消す→ソートが機能しない
+
+        // $posts = Product::where('is_completed', 0)->sortable()->paginate(10);
+        // return view('products.index',['products.index' => $posts]);
+        // return view('products.index')->with('products', $posts);
+        // return view('products.index', ['products' => $posts]);
+
+
         // ★検索部分はProduct.phpモデルへ移動
         $model = new Product(); 
         $products = $model->getList($request);

@@ -73,8 +73,8 @@
                         {{-- <a href="{{ request()->fullUrlWithQuery(['sort' => 'stock', 'direction' => 'asc']) }}">↑</a>
                         <a href="{{ request()->fullUrlWithQuery(['sort' => 'stock', 'direction' => 'desc']) }}">↓</a> --}}
                     </th>
-                    <th>@sortablelink('company->company_name', 'メーカー')</th>
-                    {{-- <th>コメント</th> --}}
+                    {{-- <th>@sortablelink('company->company_name', 'メーカー')</th> --}}
+                    <th>@sortablelink('company_id', 'メーカー')</th>    {{-- (３) --}}
                     <th>操作</th>
                 </tr>
             </thead>

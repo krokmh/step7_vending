@@ -37,6 +37,7 @@ class Product extends Model
 
     // Sortableを使ったソート機能のため追加
     protected $sortable = [
+        'id',   // （２）
         'company_id',
         'product_name',
         'price',
@@ -85,6 +86,8 @@ class Product extends Model
         //     $direction = $request->direction == 'desc' ? 'desc' : 'asc'; // directionがdescでない場合は、デフォルトでascとする
         //     $query->orderBy($sort, $direction);
         // }
+
+        $query->sortable(); // （１）
 
         // 上記の条件(クエリ）のときの5件表示
         $products = $query->paginate(5);

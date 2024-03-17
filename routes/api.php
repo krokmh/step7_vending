@@ -23,7 +23,4 @@ use App\Http\Controllers\SalesController; //追記
 
 Route::post('/purchase', 'SalesController@purchase'); //追記
 
-// 不要？
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::get('ver','API\VerController@index');

@@ -31,7 +31,6 @@
 // https://qiita.com/u-dai/items/d43e932cd6d96c09b69a
 function deleteEvent(){
 
-
     $('.delete-btn').on(click , function(e){
 
         e.preventDefault();

@@ -94,10 +94,12 @@
                         {{-- <a href="{{ route('products.edit', $product) }}" class="btn btn-primary btn-sm mx-1">編集</a> --}}
 
                         {{-- データの削除 --}}
-                        <form method="POST" action="{{ route('products.destroy', $product) }}" class="d-inline">
+                        <form method="POST" action="{{ route('products.destroy', $product) }}" class="d-inline id">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm mx-1">削除</button>
+                            {{-- step8（４） --}}
+                            <button type="submit" class="delete-btn btn btn-danger btn-sm mx-1">削除</button>
+                            {{-- <input data-user_id="{{$user->id}}" type="submit" class="delete-btn btn btn-danger btn-sm mx-1" value="削除"> --}}
                         </form>
                     </td>
                 </tr>
@@ -108,6 +110,6 @@
     {{-- ページネーション --}}
     {{-- {{ $products->links() }}  --}}
     {{ $products->appends(request()->query())->links() }}
-    
+
 </div>
 @endsection

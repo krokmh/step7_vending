@@ -38,3 +38,6 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('products', ProductController::class);
 });
+
+// Ajax試し
+Route::get('/index', [App\Http\Controllers\ProductController::class, 'index']) ->name('index');

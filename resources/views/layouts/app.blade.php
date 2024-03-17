@@ -18,6 +18,11 @@
 
     <!-- jQuery Core 3.6.0（minified）） -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script> --}}
+    {{-- step8 1.検索機能の非同期処理化　4.削除処理の非同期処理化 --}}
+    <script src="public/async.js" async></script>   {{-- footer後に本来は記述 --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
 </head>
 <body>
@@ -80,30 +85,7 @@
             @yield('content')
         </main>
     </div>
-    {{-- ソート用：https://your-school.jp/sortable/682/ --}}
-    {{-- <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.13.0/Sortable.min.js"></script> --}}
 
-    {{-- step8 1.検索機能の非同期処理化 --}}
-    {{-- api.phpも編集 --}}
-    <script>
-        // id で指定する。click() ではなく change()??
-        // $("#search").change(function(){
-            $(".search").click(function(){
-            $.ajax({
-                type:"GET",
-                url:"{{ route('products.index') }}",
-                dataType: 'json',
-            })   
-            .done(function(json){
-                alert('ajax成功');
-            })
-            .fail(function(){
-                alert('ajax失敗');
-            })
-            .always(function(){
-                //通信の成功と失敗に関わらず実行される処理
-            });
-        });
-    </script>
+    
 </body>
 </html>

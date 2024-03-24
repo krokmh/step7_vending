@@ -29,15 +29,17 @@
 
 // 削除の方
 // https://qiita.com/u-dai/items/d43e932cd6d96c09b69a
+// var より let　のが多い
 function deleteEvent(){
 
-    $('.delete-btn').on(click , function(e){
+    $('#delete-btn').on(click , function(e){
 
         e.preventDefault();
-        let deleteConfirm = confirm('削除しますか');
+        let deleteConfirm = confirm('削除しますか？');
 
         if(deleteConfirm == true){
             let clickEle = $(this);
+            // 削除ボタンにユーザーIDをカスタムデータとして埋め込んでます。
             let deleteId = clickEle.data('delete-id');
             console.log(deleteId);
 
@@ -54,16 +56,17 @@ function deleteEvent(){
             }).done(function(data){
                 // 実行の内容～～～～～
                 console.log('削除出来ました。');
+                // 通信が成功した場合、クリックした要素の親要素の <tr> を削除
                 clickEle.parents('tr').remove();
 
-                $('#pr-table').trigger("update");
+                // $('#pr-table').trigger("update");
 
             }).fail(function(){
                 // 失敗の内容～～～～～
                 alert('削除失敗')
-            })
+            });
         }else{
             e.preventDefault();   
         }
-    })
+    });
 }

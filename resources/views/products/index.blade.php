@@ -98,7 +98,7 @@
                             @csrf
                             @method('DELETE')
                             {{-- step8（４） --}}
-                            <button type="submit" class="delete-btn btn btn-danger btn-sm mx-1">削除</button>
+                            <button type="submit" id="delete-btn" class="btn btn-danger btn-sm mx-1">削除</button>
                             {{-- <input data-user_id="{{$user->id}}" type="submit" class="delete-btn btn btn-danger btn-sm mx-1" value="削除"> --}}
                         </form>
                     </td>

@@ -20,7 +20,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     {{-- <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script> --}}
     {{-- step8 1.検索機能の非同期処理化　4.削除処理の非同期処理化 --}}
-    <script src="{{ asset('/js/async.js') }}"></script>
+    {{-- <script src="{{ asset('js/async.js') }}"></script> --}}
+    <script src="{{ asset('js/async.js') }}" defer></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 

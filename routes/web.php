@@ -39,8 +39,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('products', ProductController::class);
 });
 
-// Ajax試し
-// https://qiita.com/u-dai/items/64eb777379212497c019
-Route::resource('/index', 'ProductController');
-// Route::post('/index', [App\Http\Controllers\ProductController::class, 'index']) ->name('index');
-// Route::post('/index', 'ProductController@index') ->name('index');
+// step8 Ajax
+// Route::resource('/index', 'ProductController');
+Route::post('/index', [ProductController::class, 'index']);

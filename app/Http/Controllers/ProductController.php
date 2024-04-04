@@ -16,10 +16,11 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        // step8 ソート機能の追加
+
+        // ★step8 ソート機能の追加
         // Product.phpモデルにも追記
         $posts = Product::sortable()->get(); //sortable() を先に宣言
-
+        // $posts = Product::sortable('id', 'desc')->get(); //★降順？
         // $posts = Product::sortable('company_id','asc')->paginate(5);
         // $posts = Product::sortable('product_name','desc')->paginate(5);
 

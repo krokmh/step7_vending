@@ -30,17 +30,18 @@
 // 削除の方
 // https://qiita.com/u-dai/items/d43e932cd6d96c09b69a
 // var より let　のが多い
+// https://laraweb.net/tutorial/5405/
 function deleteEvent(){
 
     $('#delete-btn').on(click , function(e){
 
-        e.preventDefault();
+        e.preventDefault(); // デフォルトの動作を止める
         let deleteConfirm = confirm('削除しますか？');
 
         if(deleteConfirm == true){
             let clickEle = $(this);
             // 削除ボタンにユーザーIDをカスタムデータとして埋め込んでます。
-            let deleteId = clickEle.data('delete-id');
+            let deleteId = clickEle.data('#delete-id');
             console.log(deleteId);
 
             $.ajaxSetup({
@@ -69,4 +70,4 @@ function deleteEvent(){
             e.preventDefault();   
         }
     });
-}
+};

@@ -31,43 +31,52 @@
 // https://qiita.com/u-dai/items/d43e932cd6d96c09b69a
 // var より let　のが多い
 // https://laraweb.net/tutorial/5405/
-function deleteEvent(){
 
-    $('#delete-btn').on(click , function(e){
+$(function(){
+    console.log('読み込みました');
+})
 
-        e.preventDefault(); // デフォルトの動作を止める
-        let deleteConfirm = confirm('削除しますか？');
+$.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')
+    }
+  });
 
-        if(deleteConfirm == true){
-            let clickEle = $(this);
-            // 削除ボタンにユーザーIDをカスタムデータとして埋め込んでます。
-            let deleteId = clickEle.data('#delete-id');
-            console.log(deleteId);
+$(function() {
+    $('#delete-btn').on('click', function() {
+        var deleteConfirm = confirm('削除しますか？');
 
-            $.ajaxSetup({
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
-            });
+        if(deleteConfirm == true) {
+
+            var clickEle = $(this);
+            // https://www.sejuku.net/blog/37402#index_id0
+            var deleteId = clickEle.attr('#delete-id');
+            
+            // clickEle.data カスタムデータ属性？
+            // let deleteId = clickEle.data('#delete-id');
 
             $.ajax({
                 // 送信設定～～～～～
                 url:'/index',
                 type:'POST',
-                data:{'_method':'DELETE'}
+                data:{'_method':'DELETE'}   //  DELETE リクエストであることを教えている
+            })
+      
+           .done(function() {
+              // 通信が成功した場合、クリックした要素の親要素の <tr> を削除
+              console.log('削除出来ました');
+              clickEle.parents('tr').remove();
+            })
 
-            }).done(function(data){
-                // 実行の内容～～～～～
-                console.log('削除出来ました。');
-                // 通信が成功した場合、クリックした要素の親要素の <tr> を削除
-                clickEle.parents('tr').remove();
-
-                // $('#pr-table').trigger("update");
-
-            }).fail(function(){
-                // 失敗の内容～～～～～
-                alert('削除失敗')
+            .fail(function() {
+                alert('削除失敗しました')
             });
-        }else{
-            e.preventDefault();   
-        }
+        
+        } else {
+            (function(e) {
+                e.preventDefault()
+            });
+        };
     });
-};
+});
+

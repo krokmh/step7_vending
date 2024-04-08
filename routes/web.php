@@ -39,6 +39,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('products', ProductController::class);
 });
 
-// step8 Ajax
+// ★step8 Ajax非同期
 // Route::resource('/index', 'ProductController');
 Route::post('/index', [ProductController::class, 'index']);

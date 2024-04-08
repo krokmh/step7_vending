@@ -21,8 +21,9 @@
     {{-- <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script> --}}
     {{-- step8 1.検索機能の非同期処理化　4.削除処理の非同期処理化 --}}
     {{-- <script src="{{ asset('js/async.js') }}"></script> --}}
-    <script src="{{ asset('js/async.js') }}" defer></script>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    {{-- <script src="{{ asset('js/async.js') }}" defer></script> --}}
+    {{-- <script src="{{ asset('/js/test.js') }}" defer></script> --}}
+    {{-- <script src=“{{ asset(‘js/test.js’) }}” defer></script> --}}
 
 
 </head>
@@ -86,7 +87,8 @@
             @yield('content')
         </main>
     </div>
-
+    <script src="{{ asset('/js/async.js') }}" defer></script>
+    {{-- <script type="text/javascript" src="path/to/test.js"></script> --}}
 
 </body>
 </html>

@@ -8,7 +8,7 @@
     <div class="search mt-5">
         
         <!-- 検索フォーム：GETメソッドで、商品一覧のルートにデータを送信 -->
-        <form method="GET" action="{{ route('products.index') }}" class="row g-3">
+        <form method="GET" action="{{ route('products.index') }}" id="#serch-form" class="row g-3">
 
             {{-- 商品名検索用の入力欄 --}}
             <div class="col-sm-12 col-md-3">
@@ -48,7 +48,8 @@
             
             {{-- ボタンを押す⇒内容を絞り込み --}}
             <div class="col-sm-12 col-md-1">
-                <button class="btn btn-outline-secondary" type="submit">検索</button>
+                {{-- step8 （１）search-btnをclass名に変更 --}}
+                <button  class="search-btn btn btn-outline-secondary" type="submit">検索</button>
             </div>
         </form>
     </div>
@@ -56,7 +57,7 @@
     <a href="{{ route('products.create') }}" class="btn btn-warning mb-3">商品新規登録</a>
 
     <h2>商品情報</h2>
-    <div class="products card mt-3">
+    <div id="#products-table" class="products card mt-3">
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -97,8 +98,8 @@
                         <form method="POST" action="{{ route('products.destroy', $product) }}" class="d-inline id">
                             @csrf
                             @method('DELETE')
-                            {{-- step8（４） --}}
-                            <button type="submit" id="delete-btn" class="btn btn-danger btn-sm mx-1">削除</button>
+                            {{-- step8（４）delete-btnをclass名にする --}}
+                            <button type="submit" class="delete-btn btn btn-danger btn-sm mx-1">削除</button>
                             {{-- <input data-user_id="{{$user->id}}" type="submit" class="delete-btn btn btn-danger btn-sm mx-1" value="削除"> --}}
                         </form>
                     </td>

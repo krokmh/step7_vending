@@ -1,10 +1,11 @@
 
-// 検索の方
+// // 検索の方
+// // 
 // $(function(){
 //     console.log('読み込みOK');
 //     deleteEvent();
 
-//     $('#search-btn').on(click , function(e){
+//     $('.search-btn').on(click , function(e){
 //         console.log('検索を押す');
 //         e.preventDefault();
 
@@ -43,14 +44,16 @@ $.ajaxSetup({
   });
 
 $(function() {
-    $('#delete-btn').on('click', function() {
+    $('.delete-btn').on('click', function(e) {
+        e.preventDefault();
         var deleteConfirm = confirm('削除しますか？');
 
         if(deleteConfirm == true) {
 
             var clickEle = $(this);
             // https://www.sejuku.net/blog/37402#index_id0
-            var deleteId = clickEle.attr('#delete-id');
+            // https://qiita.com/EasyCoder/items/1625345ef3a9ce101655
+            var deleteId = clickEle.attr('{{$companie->id}}'); 
             
             // clickEle.data カスタムデータ属性？
             // let deleteId = clickEle.data('#delete-id');
@@ -59,7 +62,7 @@ $(function() {
                 // 送信設定～～～～～
                 url:'/index',
                 type:'POST',
-                data:{'_method':'DELETE'}   //  DELETE リクエストであることを教えている
+                data:{'id': deleteId, '_method':'DELETE'}   //  DELETE リクエストであることを教えている
             })
       
            .done(function() {
@@ -72,10 +75,10 @@ $(function() {
                 alert('削除失敗しました')
             });
         
-        } else {
-            (function(e) {
-                e.preventDefault()
-            });
+        // } else {
+        //     (function(e) {
+        //         e.preventDefault()
+        //     });
         };
     });
 });

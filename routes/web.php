@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Auth; //　ユーザ認証？？
 |
 */
 
+// Laravel9のルーティングについて
+// https://readouble.com/laravel/9.x/ja/routing.html
+
 Route::get('/', function () {
     if (Auth::check()) {
         // ログイン状態なら
@@ -41,4 +44,6 @@ Route::group(['middleware' => 'auth'], function () {
 
 // ★step8 Ajax非同期
 // Route::resource('/index', 'ProductController');
-Route::post('/index', [ProductController::class, 'index']);
+// Route::post('/index', [ProductController::class, 'index']);
+Route::post('/index', [ProductController::class, 'destroy']);
+

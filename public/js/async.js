@@ -1,34 +1,38 @@
 
-// // 検索の方
-// // 
-// $(function(){
-//     console.log('読み込みOK');
-//     deleteEvent();
+// 検索の方
 
-//     $('.search-btn').on(click , function(e){
-//         console.log('検索を押す');
-//         e.preventDefault();
+$(function(){
+    console.log('読み込みOK');
+    deleteEvent();
 
-//         let formData = $('#serch-form').serialize();
-//     })
+    $('.search-btn').on('click' , function(e){
+        console.log('検索を押す');
+        e.preventDefault();
 
-//     $.ajax({
-//         url:'/index',
-//         type:'GET',
-//         data:'formDate',
-//         datatype:'html'
-//     }).done(function(data){
-//         console.log('成功');
-//         let newTarble = $(data).find('#products-table');
-//         $('#products-table').replaceWith(newTable);
-//         loadSort();
-//         deleteEvent();
-//     }).fail(function(){
-//         alert('通信失敗')
-//     })
-// })
+        let formData = $('#serch-form').serialize();
 
-// 削除の方
+        $.ajax({
+            url:'/product',
+            type:'GET',
+            data:formData,  // formDataは文字列のようにクォーテーション不要
+            dataType:'html'
+
+        }).done (function(data){
+            console.log('成功しました');
+            let newTable = $(data).find('#products-table');
+            $('#products-table').replaceWith(newTable);
+            // loadSort();  テーブルソーター？使用したら後ほど必要
+            deleteEvent();  // ここで再度、deleteEvent関数の「削除イベント」を読み込む
+
+        }).fail (function(){
+            alert('通信失敗しました')
+        });
+    
+    });
+
+});
+
+// 削除
 // https://qiita.com/u-dai/items/d43e932cd6d96c09b69a
 // var より let　のが多い
 // https://laraweb.net/tutorial/5405/
@@ -37,13 +41,14 @@ $(function(){
     console.log('読み込みました');
 })
 
-$.ajaxSetup({
-    headers: {
-      'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')
-    }
-  });
 
-$(function() {
+function  deleteEvent(){
+
+    $.ajaxSetup({
+        // headers: {'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')}
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+      });
+    
     $('.delete-btn').on('click', function(e) {
         e.preventDefault();
         var deleteConfirm = confirm('削除しますか？');
@@ -60,8 +65,13 @@ $(function() {
 
             $.ajax({
                 // 送信設定～～～～～
-                url:'/index',
+                // url:'/index',
+                url:'/delete-product',
+                // url:'/products',
+                
                 type:'POST',
+                // type:'delete',
+
                 data:{'id': deleteId, '_method':'DELETE'}   //  DELETE リクエストであることを教えている
             })
       
@@ -81,5 +91,5 @@ $(function() {
         //     });
         };
     });
-});
 
+}

@@ -45,5 +45,10 @@ Route::group(['middleware' => 'auth'], function () {
 // ★step8 Ajax非同期
 // Route::resource('/index', 'ProductController');
 // Route::post('/index', [ProductController::class, 'index']);
-Route::post('/index', [ProductController::class, 'destroy']);
+// Route::post('/index', [ProductController::class, 'destroy']);
+// Route::delete('/index', [ProductController::class, 'destroy']);
+Route::delete('/delete-product', [ProductController::class, 'destroy']);
+Route::get('/product', [ProductController::class, 'index']);
+
+
 

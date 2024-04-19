@@ -8,7 +8,7 @@
     <div class="search mt-5">
         
         <!-- 検索フォーム：GETメソッドで、商品一覧のルートにデータを送信 -->
-        <form method="GET" action="{{ route('products.index') }}" id="#serch-form" class="row g-3">
+        <form method="GET" action="{{ route('products.index') }}" id="serch-form" class="row g-3">
 
             {{-- 商品名検索用の入力欄 --}}
             <div class="col-sm-12 col-md-3">
@@ -57,7 +57,7 @@
     <a href="{{ route('products.create') }}" class="btn btn-warning mb-3">商品新規登録</a>
 
     <h2>商品情報</h2>
-    <div id="#products-table" class="products card mt-3">
+    <div id="products-table" class="products card mt-3">
         <table class="table table-striped">
             <thead>
                 <tr>

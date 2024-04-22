@@ -14,6 +14,7 @@ class Sale extends Model
         return $this->belongsTo(Product::class);
     }
 
+    // ★step8　APIのため
     protected $fillable = [
 
         // 可変する項目　$fillable属性を追記

@@ -91,7 +91,7 @@ class Product extends Model
         // SotableからTablesotarへ変換
 
         // 上記の条件(クエリ）のときの5件表示
-        $query -> orderBy('products.id', 'desc');   // 取得直前に
+        $query -> orderBy('products.id', 'desc');   // queryの取得直前に記述。そのためページネートの前へ　
         $products = $query->paginate(5);
 
         return $products;

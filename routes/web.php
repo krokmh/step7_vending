@@ -1,8 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController; //ProductController
+use App\Http\Controllers\ProductController; //ProductControllerの読み込み
 use Illuminate\Support\Facades\Auth; //　ユーザ認証？？
+
+use App\Http\Controllers\SalesController; //apiのためSalesController作成
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +51,10 @@ Route::group(['middleware' => 'auth'], function () {
 // Route::delete('/index', [ProductController::class, 'destroy']);
 Route::delete('/delete-product', [ProductController::class, 'destroy']);
 Route::get('/product', [ProductController::class, 'index']);
+
+// ★step8 postman
+// Route::post('/任意のURL', [モデル名Controller::class, 'メソッド名']);
+Route::post('/index', 'SalesController@purchase'); 
 
 
 

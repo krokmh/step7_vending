@@ -6,12 +6,12 @@ use App\Http\Controllers\ProductController;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use Kyslik\ColumnSortable\Sortable; // Sortableを使ったソート機能のため追加
+// use Kyslik\ColumnSortable\Sortable; // Sortableを使ったソート機能のため追加
 
 class Product extends Model
 {
     use HasFactory;
-    use Sortable;  // Sortableを使ったソート機能のため追加
+    // use Sortable;  // Sortableを使ったソート機能のため追加
 
     // Product商品（１）＝Sales（多s）Productモデルがsalesテーブルとリレーション
     public function sales()
@@ -36,15 +36,15 @@ class Product extends Model
     ];
 
     // Sortableを使ったソート機能のため追加
-    protected $sortable = [
-        'id',   // （２）
-        'company_id',
-        'product_name',
-        'price',
-        'stock',
-        'comment'
-        // 'img_path'
-    ];
+    // protected $sortable = [
+    //     'id',   // （２）
+    //     'company_id',
+    //     'product_name',
+    //     'price',
+    //     'stock',
+    //     'comment'
+    //     // 'img_path'
+    // ];
     
     // ProductContoroller、18l～部分を持ってきた
     public function getList($request) {
@@ -87,9 +87,11 @@ class Product extends Model
         //     $query->orderBy($sort, $direction);
         // }
 
-        $query->sortable(); // （１）
+        // $query->sortable(); // （１）
+        // SotableからTablesotarへ変換
 
         // 上記の条件(クエリ）のときの5件表示
+        $query -> orderBy('products.id', 'desc');   // 取得直前に
         $products = $query->paginate(5);
 
         return $products;

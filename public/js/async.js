@@ -4,6 +4,7 @@
 $(function(){
     console.log('読み込みOK');
     deleteEvent();
+    loadSort();
 
     $('.search-btn').on('click' , function(e){
         console.log('検索を押す');
@@ -21,7 +22,7 @@ $(function(){
             console.log('成功しました');
             let newTable = $(data).find('#products-table');
             $('#products-table').replaceWith(newTable);
-            // loadSort();  テーブルソーター？使用したら後ほど必要
+            loadSort();  // テーブルソーター？使用したら後ほど必要
             deleteEvent();  // ここで再度、deleteEvent関数の「削除イベント」を読み込む
 
         }).fail (function(){
@@ -40,7 +41,14 @@ $(function(){
 $(function(){
     console.log('読み込みました');
 })
-
+function loadSort(){
+    $('#fav-table').tablesorter({
+        headers: {
+           1: { sorter: false },
+           6: { sorter: false }
+        }
+    })
+}
 
 function  deleteEvent(){
 

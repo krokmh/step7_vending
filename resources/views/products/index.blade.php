@@ -58,24 +58,24 @@
 
     <h2>商品情報</h2>
     <div id="products-table" class="products card mt-3">
-        <table class="table table-striped">
+        <table id="fav-table" class="table table-striped">
             <thead>
                 <tr>
-                    <th>@sortablelink('id', 'ID')</th>
+                    {{-- <th>@sortablelink('id', 'ID')</th> --}}
+                    <th>ID</th>
                     <th>商品画像</th>
-                    <th>@sortablelink('product_name', '商品名')</th>
+                    <th>商品名</th>
                     <th>
-                        @sortablelink('price', '価格')
+                        価格
                         {{-- <a href="{{ request()->fullUrlWithQuery(['sort' => 'price', 'direction' => 'asc']) }}">↑</a>
                         <a href="{{ request()->fullUrlWithQuery(['sort' => 'price', 'direction' => 'desc']) }}">↓</a> --}}
                     </th>
                     <th>
-                        @sortablelink('stock', '在庫数')
+                        在庫数
                         {{-- <a href="{{ request()->fullUrlWithQuery(['sort' => 'stock', 'direction' => 'asc']) }}">↑</a>
                         <a href="{{ request()->fullUrlWithQuery(['sort' => 'stock', 'direction' => 'desc']) }}">↓</a> --}}
                     </th>
-                    {{-- <th>@sortablelink('company->company_name', 'メーカー')</th> --}}
-                    <th>@sortablelink('company_id', 'メーカー')</th>    {{-- (３) --}}
+                    <th>メーカー</th>    {{-- (３) --}}
                     <th>操作</th>
                 </tr>
             </thead>

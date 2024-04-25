@@ -52,9 +52,6 @@ Route::group(['middleware' => 'auth'], function () {
 Route::delete('/delete-product', [ProductController::class, 'destroy']);
 Route::get('/product', [ProductController::class, 'index']);
 
-// ★step8 postman
-// Route::post('/任意のURL', [モデル名Controller::class, 'メソッド名']);
-Route::post('/index', 'SalesController@purchase'); 
 
 
 

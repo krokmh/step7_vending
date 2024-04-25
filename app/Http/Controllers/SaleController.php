@@ -7,20 +7,19 @@ use Illuminate\Http\Request;
 use App\Models\Product; // Productモデルを使用
 use App\Models\Sale; // Saleモデルを使用
 
-
+// ★step8　購入処理APIの作成
 class SaleController extends Controller
 {
-    //API参考：https://qiita.com/EasyCoder/items/32c4e207255fab6338a8
     public function purchase(Request $request)
     {
         // リクエストから必要なデータを取得する
-        $productId = $request->input('product_id'); // "product_id":7が送られた場合は7が代入される
-        $quantity = $request->input('quantity', 1); // 購入する数を代入する もしも”quantity”というデータが送られていない場合は1を代入する
+        $productId = $request->input('product_id'); // "product_id":送られた値が代入される
+        $quantity = $request->input('quantity', 1); // 購入する数を代入 ※1”quantity”というデータが送られていない場合は1を代入
 
         // データベースから対象の商品を検索・取得
-        $product = Product::find($productId); // "product_id":7 送られてきた場合 Product::find(7)の情報が代入される
+        $product = Product::find($productId); // 16行目、product_idを検索
 
-        // 商品が存在しない、または在庫が不足している場合のバリデーションを行う
+        // 商品が存在しない、または在庫が不足している場合のバリデーション
         if (!$product) {
             return response()->json(['message' => '商品が存在しません'], 404);
         }
@@ -29,19 +28,19 @@ class SaleController extends Controller
         }
 
         // 在庫を減少させる
-        $product->stock -= $quantity; // $quantityは購入数を指し、デフォルトで1が指定されている
+        $product->stock -= $quantity; // $quantity＝購入数　※1：デフォルトで1が代入されてる
         $product->save();
 
 
-        // Salesテーブルに商品IDと購入日時を記録する
+        // Salesテーブルに商品IDと購入日時を記録
         $sale = new Sale([
             'product_id' => $productId,
-            // 主キーであるIDと、created_at , updated_atは自動入力されるため不要
+            // 主キーであるIDと一緒に「created_at」「 updated_at」は自動入力されるため記述の必要なし
         ]);
 
         $sale->save();
 
-        // レスポンスを返す
+        // 購入出来たとき
         return response()->json(['message' => '購入成功']);
     }
 }

@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\SalesController; //追記
+use App\Http\Controllers\SaleController; //追記
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +19,9 @@ use App\Http\Controllers\SalesController; //追記
 // APIのルールがを書くところ
 // 「他のシステム」から、データを取得・送信するための特定のURL（エンドポイント）を指す
 
-// Route::get('/sub', [App\Http\Controllers\SalesController::class, 'sub']);
+// Route::post('/purchase', 'SalesController@purchase'); //追記
+// Route::get('ver','API\VerController@index');
 
-Route::post('/purchase', 'SalesController@purchase'); //追記
-
-Route::get('ver','API\VerController@index');
+// ★step8 購入処理APIの作成
+// postman
+Route::post('/index', [SaleController::class, 'purchase']); 

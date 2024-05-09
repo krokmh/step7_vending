@@ -16,24 +16,28 @@ class SaleController extends Controller
 {
     public function purchase(Request $request)
     {
+        // ★リクエストの取得や商品の絞り込み、商品の有無処理はトランザクションを行う前に記述（tryの中はなるべくDB処理のみにしたい）
+        // リクエストから必要なデータを取得する
+        $productId = $request->input('product_id'); // "product_id":送られた値が代入される
+        $quantity = $request->input('quantity', 1); // 購入する数を代入 ※1”quantity”というデータが送られていない場合は1を代入
+        
+
+        // データベースから対象の商品を検索・取得
+        $product = Product::find($productId); // 16行目、product_idを検索
+
+        // 商品が存在しない、または在庫が不足している場合のバリデーション
+        if (!$product) {
+            return response()->json(['message' => '商品が存在しません'], 404);
+        }
+        if ($product->stock < $quantity) {
+            return response()->json(['message' => '商品が在庫不足です'], 400);
+        }
+
+
         // ★トランザクション処理
         try {
             DB::beginTransaction(); // ★データベース操作
             
-            // リクエストから必要なデータを取得する
-            $productId = $request->input('product_id'); // "product_id":送られた値が代入される
-            $quantity = $request->input('quantity', 1); // 購入する数を代入 ※1”quantity”というデータが送られていない場合は1を代入
-
-            // データベースから対象の商品を検索・取得
-            $product = Product::find($productId); // 16行目、product_idを検索
-
-            // 商品が存在しない、または在庫が不足している場合のバリデーション
-            if (!$product) {
-                return response()->json(['message' => '商品が存在しません'], 404);
-            }
-            if ($product->stock < $quantity) {
-                return response()->json(['message' => '商品が在庫不足です'], 400);
-            }
 
             // 在庫を減少させる
             $product->stock -= $quantity; // $quantity＝購入数　※1：デフォルトで1が代入されてる

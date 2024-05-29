@@ -35,8 +35,8 @@ class ProductController extends Controller
 
 
         // ★検索部分はProduct.phpモデルへ移動
-        $model = new Product(); 
-        $products = $model->getList($request);
+        $model = new Product(); //　インスタンス化、本棚に到着・目次を見る
+        $products = $model->getList($request);  // $model＝productモデルにgetList
 
         // $productsテーブルとcompaniesテーブルの中身がviewファイルで利用できる
         $companies = Company::all();
